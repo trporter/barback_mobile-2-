@@ -36,16 +36,20 @@ class CocktailScreen extends Component{
   static navigationOptions = ({ navigation }) => {
     const {state, setParams} = navigation;
     const isInfo = state.params.mode === 'info';
-    const {cocktail} = state.params;
+    const {cocktailName} = state.params;
+    const {cocktailIng} = state.params;
+    const {cocktailSteps} = state.params;
     return {
-      title: isInfo ? "Cocktail Info" : cocktail,
+      title: isInfo ? "Cocktail Info" : cocktailName,
     };
   };
   render() {
     const { params } = this.props.navigation.state;
     return (
       <View>
-        <Text>Details on {params.cocktail}</Text>
+        <Text>Details on {params.cocktailName}</Text>
+        <Text>{params.cocktailIng}</Text>
+        <Text>{params.cocktailSteps}</Text>
       </View>
     );
   }
@@ -73,7 +77,10 @@ class AllCocktailsScreen extends Component{
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', { cocktail: rowData.name.toString() })}>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', {
+              cocktailName: rowData.name.toString(),
+              cocktailIng: rowData.ing.toString(),
+              cocktailSteps: rowData.steps.toString()})}>
               <Text style={{padding: 5}}>{rowData.name.toString()}</Text>
             </TouchableHighlight>
           }
