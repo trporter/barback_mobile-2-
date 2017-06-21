@@ -37,6 +37,7 @@ class CocktailScreen extends Component{
     const {state, setParams} = navigation;
     const isInfo = state.params.mode === 'info';
     const {cocktailName} = state.params;
+    const {cocktailType} = state.params;
     const {cocktailIng} = state.params;
     const {cocktailSteps} = state.params;
     return {
@@ -48,7 +49,11 @@ class CocktailScreen extends Component{
     return (
       <View>
         <Text>Details on {params.cocktailName}</Text>
+        <Text>Family</Text>
+        <Text>{params.cocktailType}</Text>
+        <Text>Ingredients</Text>
         <Text>{params.cocktailIng}</Text>
+        <Text>Steps</Text>
         <Text>{params.cocktailSteps}</Text>
       </View>
     );
@@ -80,7 +85,8 @@ class AllCocktailsScreen extends Component{
             <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', {
               cocktailName: rowData.name.toString(),
               cocktailIng: rowData.ing.toString(),
-              cocktailSteps: rowData.steps.toString()})}>
+              cocktailSteps: rowData.steps.toString(),
+              cocktailType: rowData.type.toString()})}>
               <Text style={{padding: 5}}>{rowData.name.toString()}</Text>
             </TouchableHighlight>
           }
@@ -133,8 +139,10 @@ class CocktailCreatorScreen extends Component{
     this.state = {
       textIngNumber: 0,
       ingredients: [],
+      ingInput: [],
       textStepNumber: 0,
       steps: [],
+      stepInput: [],
       types: [],
       mode: Picker.MODE_DIALOG,
       name: '',
@@ -144,9 +152,9 @@ class CocktailCreatorScreen extends Component{
   render(){
     const addIng = () => {
       this.setState({ textIngNumber: this.state.textIngNumber += 1});
-      this.state.ingredients.push(
+      this.state.ingInput.push(
         <TextInput
-          onChangeText={(ing) => this.setState({ingredients: this.state.ingredients.push(ing)})}
+          onChangeText={(ing) => this.state.ingredients.push(ing)}
           key = {this.state.textIngNumber}
           style={{height: 20}}
           placeholder="Add ingredient"
@@ -157,12 +165,13 @@ class CocktailCreatorScreen extends Component{
     }
     const removeIng = () => {
       this.setState({ textIngNumber: this.state.textIngNumber -= 1});
-      this.state.ingredients.pop();
+      this.state.ingInput.pop();
     }
     const addStep = () => {
       this.setState({ textStepNumber: this.state.textStepNumber += 1});
-      this.state.steps.push(
+      this.state.stepInput.push(
         <TextInput
+          onChangeText={(step) => this.state.steps.push(step)}
           key = {this.state.textStepNumber}
           style={{height: 20}}
           placeholder="Add Step"
@@ -173,7 +182,7 @@ class CocktailCreatorScreen extends Component{
     }
     const removeStep = () => {
       this.setState({ textStepNumber: this.state.textStepNumber -= 1});
-      this.state.steps.pop();
+      this.state.stepInput.pop();
     }
     const makeCocktail = () => {
       yourCocktailList.push(YourCocktail(
@@ -208,13 +217,13 @@ class CocktailCreatorScreen extends Component{
           </Picker>
           <Text style = {styles.createText}>List the ingredients</Text>
           <TextInput
-            onChangeText={(ing) => this.setState({ingredients: this.state.ingredients.push(ing)})}
+            onChangeText={(ing) => this.state.ingredients.push(ing)}
             style={{height: 20}}
-            placeholder="Add ingredient"
+            placeholder="Add Ingredient"
             placeholderTextColor='black'
             backgroundColor='white'
           />
-          {this.state.ingredients}
+          {this.state.ingInput}
           <View style={{flex: .25, flexDirection: 'row'}}>
             <Button
               onPress = {addIng}
@@ -229,13 +238,13 @@ class CocktailCreatorScreen extends Component{
           </View>
           <Text style = {styles.createText}>Steps in your recipe</Text>
           <TextInput
-            onChangeText={(step) => this.setState({steps: this.state.steps.push(step)})}
+            onChangeText={(step) => this.state.steps.push(step)}
             style={{height: 20}}
             placeholder="Add step"
             placeholderTextColor='black'
             backgroundColor='white'
           />
-          {this.state.steps}
+          {this.state.stepInput}
           <View style={{flex: .25, flexDirection: 'row'}}>
             <Button
               onPress = {addStep}

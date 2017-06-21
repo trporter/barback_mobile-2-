@@ -36,7 +36,7 @@ var oldFashioned2 = new Cocktail(
   "Whiskey",
   "Old Fashioned2",
   ["bitters", "sugar", "orange wheel", "cherry", "soda", "bourbon"],
-  ["muddle all but bourbon and cherry", "remove rind", "garnish"]
+  ["muddle all but bourbon and cherry", "remove rind", "garnish", "serve"]
 );
 
 export {cocktailList};
