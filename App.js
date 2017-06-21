@@ -2,7 +2,6 @@ import {
   cocktailList,
   yourCocktailList,
   Cocktail,
-  yourCocktailnames,
   YourCocktail,
 } from './cocktails.js';
 import React, { Component } from 'react';
@@ -104,9 +103,9 @@ class YourCocktailsScreen extends Component{
     const { navigate } = this.props.navigation;
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(yourCocktailnames),
+      dataSource: ds.cloneWithRows(yourCocktailList),
     };
-    return(
+    return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
         <View style={{backgroundColor: 'white', padding: 10}}>
           <TextInput
@@ -123,8 +122,12 @@ class YourCocktailsScreen extends Component{
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', { cocktail: rowData.toString() })}>
-              <Text style={{padding: 5}}>{rowData}</Text>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', {
+              cocktailName: rowData.name.toString(),
+              cocktailIng: rowData.ing.toString(),
+              cocktailSteps: rowData.steps.toString(),
+              cocktailType: rowData.type})}>
+              <Text style={{padding: 5}}>{rowData.name}</Text>
             </TouchableHighlight>
           }
         />
@@ -185,12 +188,12 @@ class CocktailCreatorScreen extends Component{
       this.state.stepInput.pop();
     }
     const makeCocktail = () => {
-      yourCocktailList.push(YourCocktail(
+      YourCocktail(
         this.state.photo,
         this.state.type,
         this.state.name,
         this.state.ingredients,
-        this.state.steps));
+        this.state.steps);
       this.props.navigation.navigate('Your Cocktails');
     }
     return(
