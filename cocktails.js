@@ -23,33 +23,21 @@ export function YourCocktail(photo, type, name, ing, steps){
 };
 
 var oldFashioned = new Cocktail(
-  "none",
-  "Whiskey",
-  "Old Fashioned",
-  ["bitters", "sugar", "orange wheel", "cherry", "soda", "bourbon"],
-  ["muddle all but bourbon and cherry", "remove rind", "garnish"]
+  this.photo = 'none',
+  this.type = "Whiskey",
+  this.name = "Old Fashioned",
+  this.ing = ["bitters", "sugar", "orange wheel", "cherry", "soda", "bourbon"],
+  this.steps = ["muddle all but bourbon and cherry", "remove rind", "garnish"]
 );
 
 var oldFashioned2 = new Cocktail(
-  "none",
-  "Whiskey",
-  "Old Fashioned2",
-  ["bitters", "sugar", "orange wheel", "cherry", "soda", "bourbon"],
-  ["muddle all but bourbon and cherry", "remove rind", "garnish", "serve"]
+  this.photo = "none",
+  this.type = "Whiskey",
+  this.name = "Old Fashioned2",
+  this.ing = ["bitters", "sugar", "orange wheel", "cherry", "soda", "bourbon"],
+  this.steps = ["muddle all but bourbon and cherry", "remove rind", "garnish", "serve"]
 );
 
 export {cocktailList};
 export {yourCocktailList};
 export {yourCocktailnames};
-/*
-<List>
-  <FlatList
-    data = {this.state.dataSource}
-    renderItem = {({ item }) => (
-      <ListItem
-        title= {`${item.name}`}
-      />
-    )}
-  />
-</List>
-*/

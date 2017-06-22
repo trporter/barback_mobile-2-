@@ -3,6 +3,7 @@ import {
   yourCocktailList,
   Cocktail,
   YourCocktail,
+  CocktailClass,
 } from './cocktails.js';
 import React, { Component } from 'react';
 import { styles } from './styles.js';
@@ -86,7 +87,7 @@ class AllCocktailsScreen extends Component{
               cocktailIng: rowData.ing.toString(),
               cocktailSteps: rowData.steps.toString(),
               cocktailType: rowData.type.toString()})}>
-              <Text style={{padding: 5}}>{rowData.name.toString()}</Text>
+              <Text style={{padding: 5}}>{rowData.name}</Text>
             </TouchableHighlight>
           }
         />
@@ -188,12 +189,15 @@ class CocktailCreatorScreen extends Component{
       this.state.stepInput.pop();
     }
     const makeCocktail = () => {
-      YourCocktail(
-        this.state.photo,
-        this.state.type,
-        this.state.name,
-        this.state.ingredients,
-        this.state.steps);
+      yourCocktailList.push(
+        new Cocktail(
+          this.state.photo,
+          this.state.type,
+          this.state.name,
+          this.state.ingredients,
+          this.state.steps
+        )
+      );
       this.props.navigation.navigate('Your Cocktails');
     }
     return(
