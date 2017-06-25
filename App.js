@@ -25,6 +25,17 @@ import {
   StackNavigator,
   TabNavigator,
 } from 'react-navigation';
+import * as firebase from 'firebase';
+const SearchBar = require('./searchBar');
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "<your-api-key>",
+  authDomain: "<your-auth-domain>",
+  databaseURL: "<your-database-url>",
+  storageBucket: "<your-storage-bucket>",
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class HomeScreen extends Component{
   static navigationOptions = {
@@ -72,13 +83,7 @@ class AllCocktailsScreen extends Component{
     };
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
-        <View style={{backgroundColor: 'white', padding: 10}}>
-          <TextInput
-            style={{height: 20}}
-            placeholder="Search"
-            placeholderTextColor= 'black'
-          />
-        </View>
+        <SearchBar/>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
@@ -109,11 +114,7 @@ class YourCocktailsScreen extends Component{
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
         <View style={{backgroundColor: 'white', padding: 10}}>
-          <TextInput
-          style={{height: 20}}
-            placeholder="Search"
-            placeholderTextColor='black'
-          />
+          <SearchBar/>
           <Button
             onPress = {() => navigate('CreateCocktail')}
             title="Create"
@@ -189,12 +190,14 @@ class CocktailCreatorScreen extends Component{
       this.state.stepInput.pop();
     }
     const makeCocktail = () => {
+      console.log(this.state.ingInput);
+      console.log(this.state.ingredients);
       yourCocktailList.push(
         new Cocktail(
           this.state.photo,
           this.state.type,
           this.state.name,
-          this.state.ingredients,
+          this.state.ingredients.reduce(function(a,b) {return a.length > b.length ? a : b; }),
           this.state.steps
         )
       );
