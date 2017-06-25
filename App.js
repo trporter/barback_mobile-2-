@@ -29,13 +29,14 @@ import * as firebase from 'firebase';
 const SearchBar = require('./searchBar');
 
 // Initialize Firebase
-const firebaseConfig = {
-  apiKey: "<your-api-key>",
-  authDomain: "<your-auth-domain>",
-  databaseURL: "<your-database-url>",
-  storageBucket: "<your-storage-bucket>",
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp({
+  apiKey: "AIzaSyDAzkR17y2RvNJD-vav8kbCSeNEzmYRDGI",
+  authDomain: "barback-70817.firebaseapp.com",
+  databaseURL: "https://barback-70817.firebaseio.com",
+  projectId: "barback-70817",
+  storageBucket: "barback-70817.appspot.com",
+  messagingSenderId: "651165027176"
+});
 
 class HomeScreen extends Component{
   static navigationOptions = {
