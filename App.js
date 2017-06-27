@@ -26,7 +26,11 @@ import {
   TabNavigator,
 } from 'react-navigation';
 import * as firebase from 'firebase';
-const SearchBar = require('./searchBar');
+import UserProfile from './user.js';
+import Login from './login.js';
+import Account from './account.js';
+import Signup from "./signUp.js"
+const SearchBar = require('./searchBar.js');
 
 // Initialize Firebase
 firebase.initializeApp({
@@ -287,6 +291,9 @@ const MainScreenNavigator = TabNavigator({
   "Your Cocktails": {
     screen: YourCocktailsScreen
   },
+  "Account": {
+    screen: Login
+  },
 }, {
   tabBarOptions: {
     activeBackgroundColor: 'grey',
@@ -310,6 +317,10 @@ const SimpleApp = StackNavigator({
   Home: { screen: MainScreenNavigator },
   CocktailDetail: { screen: CocktailScreen },
   CreateCocktail: { screen: CocktailCreatorScreen },
+  UserProfile:    { screen: UserProfile },
+  Login:          { screen: Login },
+  Signup:         { screen: Signup },
+  Account:        { screen: Account },
 });
 
 AppRegistry.registerComponent('Barback_mobile', () => SimpleApp);

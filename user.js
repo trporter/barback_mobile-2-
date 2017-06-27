@@ -1,33 +1,33 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
+import { Login } from './login';
+import {
+  AppRegistry,
+  Text,
+  Button,
+  ScrollView,
+  View,
+  Picker,
+  StyleSheet,
+  TextInput,
+  List,
+  ListView,
+  FlatList,
+  TouchableHighlight,
+} from 'react-native';
 
 
-class User extends Component{
-
-}
-
-async signup(email, pass) {
-  try {
-    await firebase.auth()
-        .createUserWithEmailAndPassword(email, pass);
-    console.log("Account created");
-    // Navigate to the Home page, the user is auto logged in
-  } catch (error) {
-    console.log(error.toString())
+class UserProfile extends Component{
+  render(){
+    return(
+      <View>
+        <Text>hello world</Text>
+      </View>
+    );
   }
 }
 
-async login(email, pass) {
-  try {
-    await firebase.auth()
-        .signInWithEmailAndPassword(email, pass);
-    console.log("Logged In!");
-    // Navigate to the Home page
-  } catch (error) {
-    console.log(error.toString())
-  }
-}
-
+/*
 async logout() {
   try {
     await firebase.auth().signOut();
@@ -36,3 +36,8 @@ async logout() {
     console.log(error);
   }
 }
+*/
+
+module.exports = UserProfile;
+
+AppRegistry.registerComponent('UserProfile', () => UserProfile);
