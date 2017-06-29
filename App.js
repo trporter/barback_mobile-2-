@@ -41,6 +41,7 @@ firebase.initializeApp({
   storageBucket: "barback-70817.appspot.com",
   messagingSenderId: "651165027176"
 });
+var database = firebase.database();
 
 class HomeScreen extends Component{
   static navigationOptions = {
@@ -82,9 +83,12 @@ class AllCocktailsScreen extends Component{
   }
   render(){
     const { navigate } = this.props.navigation;
+    const log = () => {
+      console.log(database);
+    }
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(cocktailList),
+      dataSource: ds.cloneWithRows(database),
     };
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
@@ -92,12 +96,8 @@ class AllCocktailsScreen extends Component{
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', {
-              cocktailName: rowData.name.toString(),
-              cocktailIng: rowData.ing.toString(),
-              cocktailSteps: rowData.steps.toString(),
-              cocktailType: rowData.type.toString()})}>
-              <Text style={{padding: 5}}>{rowData.name}</Text>
+            <TouchableHighlight onPress={log}>
+              <Text style={{padding: 5}}>test</Text>
             </TouchableHighlight>
           }
         />

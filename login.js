@@ -123,30 +123,20 @@ export default class Login extends Component {
     }
   }
   login(){
-    this.setState({
-      loading: true
-    });
+    this.setState({loading: true});
     // Log in and display an alert to tell the user what happened.
-    this.props.firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password
-    ).then((userData) =>
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password
+    ).then(() =>
       {
-        this.setState({
-          loading: false
-        });
-        AsyncStorage.setItem('userData', JSON.stringify(userData));
-        this.props.navigator.push({
-          component: Account
-        });
+        this.setState({loading: false});
+        this.props.navigation.navigate('UserProfile');
       }
     ).catch((error) =>
     {
-      this.setState({
-        loading: false
-      });
+      this.setState({loading: false});
       alert('Login Failed. Please try again'+error);
     });
   }
-  // Go to the signup page
   goToSignup(){
     this.props.navigation.navigate('Signup');
   }

@@ -18,10 +18,32 @@ import {
 
 
 class UserProfile extends Component{
-  render(){
-    return(
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    }
+  }
+  componentWillMount() {
+    var userData = firebase.auth().currentUser;
+    this.setState({
+      user: userData,
+    });
+  }
+  logout() {
+    firebase.auth().signOut().then(() => {
+      this.props.navigation.navigate('Login');
+    });
+  }
+  render() {
+    return (
       <View>
-        <Text>hello world</Text>
+        <Text>{this.state.user.email}</Text>
+        <Button
+          onPress={this.logout.bind(this)}
+          title="Logout"
+          color="black"
+        />
       </View>
     );
   }

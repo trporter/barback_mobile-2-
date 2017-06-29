@@ -30,3 +30,5 @@ class SearchBar extends Component {
 }
 
 module.exports = SearchBar;
+
+AppRegistry.registerComponent('SearchBar', () => SearchBar);
