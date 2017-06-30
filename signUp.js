@@ -43,15 +43,18 @@ export default class Signup extends Component {
           password: '',
           loading: false
         });
-        this.props.navigation.navigate('Account');
+        this.props.navigation.navigate('Home');
       }).catch((error) => {
         this.setState({loading: false});
         alert("Account creation failed: " + error.message );
         });
   }
   render() {
+    const back = () => {
+      this.props.navigation.goBack(null)
+    }
     return (
-      <View>
+      <View style={{paddingTop: 50}}>
         <TextInput
           style={{height: 20}}
           placeholderTextColor='black'
@@ -70,6 +73,9 @@ export default class Signup extends Component {
         <Button
           onPress={this.signup.bind(this)}
           title="Signup"/>
+          <Button
+            onPress={back}
+            title="Back"/>
       </View>
     );
   }

@@ -129,7 +129,7 @@ export default class Login extends Component {
     ).then(() =>
       {
         this.setState({loading: false});
-        this.props.navigation.navigate('UserProfile');
+        this.props.navigation.navigate('Home');
       }
     ).catch((error) =>
     {
@@ -142,7 +142,7 @@ export default class Login extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={{paddingTop: 50}}>
         <TextInput
           style={{height: 20}}
           placeholderTextColor='black'

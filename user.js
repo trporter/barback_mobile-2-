@@ -15,6 +15,9 @@ import {
   FlatList,
   TouchableHighlight,
 } from 'react-native';
+import {
+  NavigationActions,
+} from 'react-navigation';
 
 
 class UserProfile extends Component{
@@ -36,12 +39,20 @@ class UserProfile extends Component{
     });
   }
   render() {
+    const home = () => {
+      NavigationActions.back('Home');
+    }
     return (
-      <View>
-        <Text>{this.state.user.email}</Text>
+      <View style={{paddingTop: 50}}>
+        <Text>Welcome</Text>
         <Button
           onPress={this.logout.bind(this)}
           title="Logout"
+          color="black"
+        />
+        <Button
+          onPress={home}
+          title="Home"
           color="black"
         />
       </View>

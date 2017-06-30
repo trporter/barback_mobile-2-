@@ -29,7 +29,7 @@ import * as firebase from 'firebase';
 import UserProfile from './user.js';
 import Login from './login.js';
 import Account from './account.js';
-import Signup from "./signUp.js"
+import Signup from "./signUp.js";
 const SearchBar = require('./searchBar.js');
 
 // Initialize Firebase
@@ -91,7 +91,7 @@ class AllCocktailsScreen extends Component{
       dataSource: ds.cloneWithRows(database),
     };
     return (
-      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
+      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal', paddingTop: 50 }}>
         <SearchBar/>
         <ListView
           dataSource={this.state.dataSource}
@@ -118,7 +118,7 @@ class YourCocktailsScreen extends Component{
     };
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
-        <View style={{backgroundColor: 'white', padding: 10}}>
+        <View style={{backgroundColor: 'white', padding: 10, paddingTop: 50}}>
           <SearchBar/>
           <Button
             onPress = {() => navigate('CreateCocktail')}
@@ -209,7 +209,7 @@ class CocktailCreatorScreen extends Component{
       this.props.navigation.navigate('Your Cocktails');
     }
     return(
-      <View style = {{flex: 1, flexDirection: 'column', backgroundColor: 'teal'}}>
+      <View style = {{flex: 1, flexDirection: 'column', backgroundColor: 'teal', paddingTop: 50}}>
         <ScrollView>
           <Text style = {styles.createText}>Name your Cocktail</Text>
           <TextInput
@@ -292,7 +292,7 @@ const MainScreenNavigator = TabNavigator({
     screen: YourCocktailsScreen
   },
   "Account": {
-    screen: Login
+    screen: UserProfile
   },
 }, {
   tabBarOptions: {
@@ -310,17 +310,24 @@ const MainScreenNavigator = TabNavigator({
 
 //figure out how to style the header!!!
 MainScreenNavigator.navigationOptions = {
+
   title: 'BarBack',
 };
 
-const SimpleApp = StackNavigator({
-  Home: { screen: MainScreenNavigator },
-  CocktailDetail: { screen: CocktailScreen },
-  CreateCocktail: { screen: CocktailCreatorScreen },
-  UserProfile:    { screen: UserProfile },
-  Login:          { screen: Login },
-  Signup:         { screen: Signup },
-  Account:        { screen: Account },
-});
+const SimpleApp = StackNavigator(
+  {
+    Home:           { screen: MainScreenNavigator },
+    CocktailDetail: { screen: CocktailScreen },
+    CreateCocktail: { screen: CocktailCreatorScreen },
+    UserProfile:    { screen: UserProfile },
+    Login:          { screen: Login },
+    Signup:         { screen: Signup },
+    Account:        { screen: Account },
+  },
+  {
+    initialRouteName: 'Login',
+    headerMode: 'none',
+  },
+);
 
 AppRegistry.registerComponent('Barback_mobile', () => SimpleApp);
