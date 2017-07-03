@@ -73,9 +73,9 @@ export default class Signup extends Component {
         <Button
           onPress={this.signup.bind(this)}
           title="Signup"/>
-          <Button
-            onPress={back}
-            title="Back"/>
+        <Button
+          onPress={back}
+          title="Back"/>
       </View>
     );
   }

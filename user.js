@@ -25,6 +25,7 @@ class UserProfile extends Component{
     super(props);
     this.state = {
       user: null,
+      cocktails: [],
     }
   }
   componentWillMount() {
@@ -39,9 +40,6 @@ class UserProfile extends Component{
     });
   }
   render() {
-    const home = () => {
-      NavigationActions.back('Home');
-    }
     return (
       <View style={{paddingTop: 50}}>
         <Text>Welcome</Text>
@@ -50,26 +48,10 @@ class UserProfile extends Component{
           title="Logout"
           color="black"
         />
-        <Button
-          onPress={home}
-          title="Home"
-          color="black"
-        />
       </View>
     );
   }
 }
-
-/*
-async logout() {
-  try {
-    await firebase.auth().signOut();
-    // Navigate to login view
-  } catch (error) {
-    console.log(error);
-  }
-}
-*/
 
 module.exports = UserProfile;
 
