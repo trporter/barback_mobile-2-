@@ -42,7 +42,7 @@ firebase.initializeApp({
   storageBucket: "barback-70817.appspot.com",
   messagingSenderId: "651165027176"
 });
-var database = firebase.database();
+var user = firebase.auth().currentUser;
 
 class HomeScreen extends Component{
   static navigationOptions = {
@@ -84,6 +84,8 @@ class CocktailScreen extends Component{
   }
 }
 
+//firebase.database().ref().on('value',...)
+
 class AllCocktailsScreen extends Component{
   constructor(props) {
     super(props);
@@ -124,7 +126,7 @@ class YourCocktailsScreen extends Component{
     const { navigate } = this.props.navigation;
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(yourCocktailList),
+      dataSource: ds.cloneWithRows(firebase.database().ref(`${user}` + '/cocktails')),
     };
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>

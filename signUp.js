@@ -27,7 +27,6 @@ export default class Signup extends Component {
     this.state = {
       // used to display a progress indicator if waiting for a network response.
       loading: false,
-      // entered credentials
       email: '',
       password: ''
     }

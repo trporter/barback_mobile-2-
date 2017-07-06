@@ -12,6 +12,7 @@ import {
   FlatList,
   TouchableHighlight,
 } from 'react-native';
+import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import { styles } from './styles.js';
 import {
@@ -22,12 +23,14 @@ import {
   CocktailClass,
 } from './cocktails.js';
 
+var user = firebase.auth().currentUser;
+
 export class CocktailCreatorScreen extends Component{
   constructor() {
     super();
     this.state = {
       textIngNumber: 0,
-      ingredients: [],
+      ingredients: '',
       ingInput: [],
       textStepNumber: 0,
       steps: [],
@@ -43,7 +46,7 @@ export class CocktailCreatorScreen extends Component{
       this.setState({ textIngNumber: this.state.textIngNumber += 1});
       this.state.ingInput.push(
         <TextInput
-          onChangeText={(ing) => this.state.ingredients.push(ing)}
+          onChangeText={(ing) => this.setState({ingredients: ing})}
           key = {this.state.textIngNumber}
           style={{height: 20}}
           placeholder="Add ingredient"
@@ -73,18 +76,13 @@ export class CocktailCreatorScreen extends Component{
       this.setState({ textStepNumber: this.state.textStepNumber -= 1});
       this.state.stepInput.pop();
     }
-    const makeCocktail = () => {
-      console.log(this.state.ingInput);
-      console.log(this.state.ingredients);
-      yourCocktailList.push(
-        new Cocktail(
-          this.state.photo,
-          this.state.type,
-          this.state.name,
-          this.state.ingredients.reduce(function(a,b) {return a.length > b.length ? a : b; }),
-          this.state.steps
-        )
-      );
+    const WriteCocktailData = () => {
+      firebase.database().ref(`${user}` + '/cocktails' + `${this.state.name}`).set({
+        name: `${this.state.name}`,
+        ingredients: `${this.state.ingredients}`,
+        steps: `${this.state.steps}`,
+        type: `${this.state.type}`
+      });
       this.props.navigation.navigate('Your Cocktails');
     }
     return(
@@ -111,7 +109,7 @@ export class CocktailCreatorScreen extends Component{
           </Picker>
           <Text style = {styles.createText}>List the ingredients</Text>
           <TextInput
-            onChangeText={(ing) => this.state.ingredients.push(ing)}
+            onChangeText={(ing) => this.setState({ingredients: ing})}
             style={{height: 20}}
             placeholder="Add Ingredient"
             placeholderTextColor='black'
@@ -152,7 +150,7 @@ export class CocktailCreatorScreen extends Component{
             />
           </View>
           <Button
-            onPress = {makeCocktail}
+            onPress = {WriteCocktailData}
             title="Finish"
             color="black"
           />
