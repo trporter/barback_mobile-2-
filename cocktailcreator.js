@@ -23,12 +23,11 @@ import {
   CocktailClass,
 } from './cocktails.js';
 
-var user = firebase.auth().currentUser;
-
 export class CocktailCreatorScreen extends Component{
   constructor() {
     super();
     this.state = {
+      user: firebase.auth().currentUser,
       textIngNumber: 0,
       ingredients: '',
       ingInput: [],
@@ -51,8 +50,7 @@ export class CocktailCreatorScreen extends Component{
           style={{height: 20}}
           placeholder="Add ingredient"
           placeholderTextColor='black'
-          backgroundColor='white'
-        />
+          backgroundColor='white' />
       )
     }
     const removeIng = () => {
@@ -68,8 +66,7 @@ export class CocktailCreatorScreen extends Component{
           style={{height: 20}}
           placeholder="Add Step"
           placeholderTextColor='black'
-          backgroundColor='white'
-        />
+          backgroundColor='white' />
       )
     }
     const removeStep = () => {
@@ -77,7 +74,7 @@ export class CocktailCreatorScreen extends Component{
       this.state.stepInput.pop();
     }
     const WriteCocktailData = () => {
-      firebase.database().ref(`${user}` + '/cocktails' + `${this.state.name}`).set({
+      firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + `${this.state.name}`).set({
         name: `${this.state.name}`,
         ingredients: `${this.state.ingredients}`,
         steps: `${this.state.steps}`,
@@ -113,20 +110,17 @@ export class CocktailCreatorScreen extends Component{
             style={{height: 20}}
             placeholder="Add Ingredient"
             placeholderTextColor='black'
-            backgroundColor='white'
-          />
+            backgroundColor='white' />
           {this.state.ingInput}
           <View style={{flex: .25, flexDirection: 'row'}}>
             <Button
               onPress = {addIng}
               title="+"
-              color="black"
-            />
+              color="black" />
             <Button
               onPress = {removeIng}
               title="-"
-              color="black"
-            />
+              color="black" />
           </View>
           <Text style = {styles.createText}>Steps in your recipe</Text>
           <TextInput
@@ -134,20 +128,17 @@ export class CocktailCreatorScreen extends Component{
             style={{height: 20}}
             placeholder="Add step"
             placeholderTextColor='black'
-            backgroundColor='white'
-          />
+            backgroundColor='white' />
           {this.state.stepInput}
           <View style={{flex: .25, flexDirection: 'row'}}>
             <Button
               onPress = {addStep}
               title="+"
-              color="black"
-            />
+              color="black" />
             <Button
               onPress = {removeStep}
               title="-"
-              color="black"
-            />
+              color="black" />
           </View>
           <Button
             onPress = {WriteCocktailData}
