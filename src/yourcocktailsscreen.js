@@ -17,20 +17,7 @@ import * as firebase from 'firebase';
 const SearchBar = require('./searchBar.js');
 
 /*
-.on("value",
-  function(snapshot){
-    for(i = 0; i < snapshot.val().length; i++){
-      return i.name;
-    };
-  }
-)
-dataSource: ds.cloneWithRows(firebase.database().ref(`${this.state.user.uid}` + '/cocktails').on("value",
-  function(snapshot){
-    console.log(snapshot.val());
-    this.state.cocktailnames.push(snapshot.val());
-    console.log(this.state.cocktailnames);
-  }
-)),
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 <ListView
   dataSource={this.state.dataSource}
   renderRow={(rowData) =>
@@ -46,6 +33,10 @@ dataSource: ds.cloneWithRows(firebase.database().ref(`${this.state.user.uid}` + 
 for(i = 0; Object.keys(snapshot.val()).length; i++){
   names.i = snapshot.val().keys[i];
 }
+Lister(arr){
+  console.log(arr);
+  return arr;
+}
 */
 
 class YourCocktailsScreen extends Component{
@@ -56,20 +47,20 @@ class YourCocktailsScreen extends Component{
       user: firebase.auth().currentUser,
     }
   }
-  Lister(arr){
-    this.state.cocktailnames = arr;
-    console.log(this.state.cocktailnames);
-  }
   componentWillMount(){
-    firebase.database().ref(`${this.state.user.uid}` + '/cocktails').on("value",
-      function(snapshot){
-        Lister(Object.keys(snapshot.val()));
+    this.Lister();
+  }
+  Lister(){
+    firebase.database().ref(`${this.state.user.uid}` + '/cocktails').on('value', (snapshot) =>{
+      if(snapshot.val() !== null){
+        this.setState({cocktailnames: Object.keys(snapshot.val())});
+      } else {
+        this.setState({cocktailnames: ["Add Cocktails!"]});
       }
-    );
+    });
   }
   render(){
     const { navigate } = this.props.navigation;
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
         <View style={{backgroundColor: 'white', padding: 10, paddingTop: 50}}>
@@ -80,13 +71,19 @@ class YourCocktailsScreen extends Component{
             color="black" />
         </View>
         <ScrollView>
-          {this.state.cocktailnames}
+          {this.state.cocktailnames.map((name,i)=>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail')}>
+              <Text key={i}>
+                {name}
+              </Text>
+            </TouchableHighlight>
+          )}
         </ScrollView>
       </View>
     );
   }
 }
-
+//this.Lister(this.state.cocktailnames)
 module.exports = YourCocktailsScreen;
 
 AppRegistry.registerComponent('YourCocktailsScreen', () => YourCocktailsScreen);

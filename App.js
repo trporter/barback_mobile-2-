@@ -4,9 +4,9 @@ import {
   Cocktail,
   YourCocktail,
   CocktailClass,
-} from './cocktails.js';
+} from './src/cocktails.js';
 import React, { Component } from 'react';
-import { styles } from './styles.js';
+import { styles } from './src/styles.js';
 import {
   AppRegistry,
   Text,
@@ -26,15 +26,15 @@ import {
   TabNavigator,
 } from 'react-navigation';
 import * as firebase from 'firebase';
-import UserProfile from './user.js';
-import Login from './login.js';
-import Account from './account.js';
-import Signup from "./signUp.js";
-import CocktailCreatorScreen from "./cocktailcreator.js";
-import CocktailScreen from "./cocktailscreen.js";
-import AllCocktailsScreen from "./allcocktailsscreen.js";
-import YourCocktailsScreen from "./yourcocktailsscreen.js";
-const SearchBar = require('./searchBar.js');
+import UserProfile from './src/user.js';
+import Login from './src/login.js';
+import Account from './src/account.js';
+import Signup from "./src/signUp.js";
+import CocktailCreatorScreen from "./src/cocktailcreator.js";
+import CocktailScreen from "./src/cocktailscreen.js";
+import AllCocktailsScreen from "./src/allcocktailsscreen.js";
+import YourCocktailsScreen from "./src/yourcocktailsscreen.js";
+const SearchBar = require('./src/searchBar.js');
 
 // Initialize Firebase
 var config = {

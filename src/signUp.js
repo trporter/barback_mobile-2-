@@ -28,7 +28,8 @@ export default class Signup extends Component {
       // used to display a progress indicator if waiting for a network response.
       loading: false,
       email: '',
-      password: ''
+      password: '',
+      user: ''
     }
   }
   signup() {
@@ -40,7 +41,8 @@ export default class Signup extends Component {
         this.setState({
           email: '',
           password: '',
-          loading: false
+          loading: false,
+          user: firebase.auth().currentUser,
         });
         this.props.navigation.navigate('Home');
       }).catch((error) => {
