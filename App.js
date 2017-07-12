@@ -31,6 +31,9 @@ import Login from './login.js';
 import Account from './account.js';
 import Signup from "./signUp.js";
 import CocktailCreatorScreen from "./cocktailcreator.js";
+import CocktailScreen from "./cocktailscreen.js";
+import AllCocktailsScreen from "./allcocktailsscreen.js";
+import YourCocktailsScreen from "./yourcocktailsscreen.js";
 const SearchBar = require('./searchBar.js');
 
 // Initialize Firebase
@@ -48,121 +51,6 @@ class HomeScreen extends Component{
   static navigationOptions = {
     title: 'Welcome',
   };
-}
-
-class CocktailScreen extends Component{
-  static navigationOptions = ({ navigation }) => {
-    const {state, setParams} = navigation;
-    const isInfo = state.params.mode === 'info';
-    const {cocktailName} = state.params;
-    const {cocktailType} = state.params;
-    const {cocktailIng} = state.params;
-    const {cocktailSteps} = state.params;
-    return {
-      title: isInfo ? "Cocktail Info" : cocktailName,
-    };
-  };
-  render() {
-    const { params } = this.props.navigation.state;
-    const back = () => {
-      this.props.navigation.goBack(null);
-    }
-    return (
-      <View style={{paddingTop: 50}}>
-        <Text>Details on {params.cocktailName}</Text>
-        <Text>Family</Text>
-        <Text>{params.cocktailType}</Text>
-        <Text>Ingredients</Text>
-        <Text>{params.cocktailIng}</Text>
-        <Text>Steps</Text>
-        <Text>{params.cocktailSteps}</Text>
-        <Button
-          onPress={back}
-          title="back" />
-      </View>
-    );
-  }
-}
-
-//firebase.database().ref().on('value',...)
-
-class AllCocktailsScreen extends Component{
-  constructor(props) {
-    super(props);
-  }
-  render(){
-    const { navigate } = this.props.navigation;
-    const log = () => {
-      console.log(database);
-    }
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(cocktailList),
-    };
-    return (
-      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal', paddingTop: 50 }}>
-        <SearchBar/>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) =>
-            <TouchableHighlight onPress={log}>
-              <Text style={{padding: 5}}>test</Text>
-            </TouchableHighlight>
-          }
-        />
-      </View>
-    );
-  }
-}
-
-class YourCocktailsScreen extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      cocktails: [],
-      user: firebase.auth().currentUser,
-    }
-  }
-  render(){
-    const { navigate } = this.props.navigation;
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(
-        firebase.database().ref(`${this.state.user.uid}` + '/cocktails').once('value')
-      ),
-    };
-    const item = () => {
-      console.log(rowData);
-      if(rowData === null){
-        return "Cocktails go here!";
-      } else {
-        return rowData;
-      }
-    }
-    return (
-      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
-        <View style={{backgroundColor: 'white', padding: 10, paddingTop: 50}}>
-          <SearchBar/>
-          <Button
-            onPress = {() => navigate('CreateCocktail')}
-            title="Create"
-            color="black" />
-        </View>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) =>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', {
-              cocktailName:  rowData.name.toString(),
-              cocktailIng:   rowData.ing.toString(),
-              cocktailSteps: rowData.steps.toString(),
-              cocktailType:  rowData.type})}>
-              <Text style={{padding: 5}}>{rowData}</Text>
-            </TouchableHighlight>
-          }
-        />
-      </View>
-    );
-  }
 }
 
 const MainScreenNavigator = TabNavigator({
