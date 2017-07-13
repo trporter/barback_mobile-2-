@@ -16,29 +16,6 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 const SearchBar = require('./searchBar.js');
 
-/*
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-<ListView
-  dataSource={this.state.dataSource}
-  renderRow={(rowData) =>
-    <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail', {
-      cocktailName:  rowData.name.toString(),
-      cocktailIng:   rowData.ing.toString(),
-      cocktailSteps: rowData.steps.toString(),
-      cocktailType:  rowData.type})}>
-      <Text style={{padding: 5}}>{rowData}</Text>
-    </TouchableHighlight>
-  }
-/>
-for(i = 0; Object.keys(snapshot.val()).length; i++){
-  names.i = snapshot.val().keys[i];
-}
-Lister(arr){
-  console.log(arr);
-  return arr;
-}
-*/
-
 class YourCocktailsScreen extends Component{
   constructor(props) {
     super(props);
@@ -83,7 +60,7 @@ class YourCocktailsScreen extends Component{
     );
   }
 }
-//this.Lister(this.state.cocktailnames)
+
 module.exports = YourCocktailsScreen;
 
 AppRegistry.registerComponent('YourCocktailsScreen', () => YourCocktailsScreen);

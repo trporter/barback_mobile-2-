@@ -26,27 +26,42 @@ const SearchBar = require('./searchBar.js');
 class AllCocktailsScreen extends Component{
   constructor(props) {
     super(props);
+    this.state = {
+      cocktailnames: [],
+    }
+  }
+  componentWillMount(){
+    this.Lister();
+  }
+  Lister(){
+    firebase.database().ref('/allcocktails').on('value', (snapshot) =>{
+      if(snapshot.val() !== null){
+        this.setState({cocktailnames: Object.keys(snapshot.val())});
+      } else {
+        this.setState({cocktailnames: ["No Cocktails?"]});
+      }
+    });
   }
   render(){
     const { navigate } = this.props.navigation;
-    const log = () => {
-      console.log(database);
-    }
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(cocktailList),
-    };
     return (
-      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal', paddingTop: 50 }}>
-        <SearchBar/>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) =>
-            <TouchableHighlight onPress={log}>
-              <Text style={{padding: 5}}>test</Text>
+      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
+        <View style={{backgroundColor: 'white', padding: 10, paddingTop: 50}}>
+          <SearchBar/>
+          <Button
+            onPress = {() => navigate('CreateCocktail')}
+            title="Create"
+            color="black" />
+        </View>
+        <ScrollView>
+          {this.state.cocktailnames.map((name,i)=>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail')}>
+              <Text key={i}>
+                {name}
+              </Text>
             </TouchableHighlight>
-          }
-        />
+          )}
+        </ScrollView>
       </View>
     );
   }
