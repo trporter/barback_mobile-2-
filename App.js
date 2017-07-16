@@ -34,7 +34,7 @@ import CocktailCreatorScreen from "./src/cocktailcreator.js";
 import CocktailScreen from "./src/cocktailscreen.js";
 import AllCocktailsScreen from "./src/allcocktailsscreen.js";
 import YourCocktailsScreen from "./src/yourcocktailsscreen.js";
-const SearchBar = require('./src/searchBar.js');
+const Search = require('./src/searchBar.js');
 
 // Initialize Firebase
 var config = {

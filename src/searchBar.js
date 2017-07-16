@@ -14,21 +14,27 @@ import {
   FlatList,
   TouchableHighlight,
 } from 'react-native';
+import SearchBar from 'react-native-searchbar';
+import fontAwesome from "react-native-vector-icons";
+//const reactNativeVectorIconsRequiredStyles = "@font-face { src:url("+fontAwesome+");font-family: FontAwesome; }";
 
-class SearchBar extends Component {
+class Search extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      results: []
+    }
+  }
   render(){
     return(
-      <View style={{backgroundColor: 'white', padding: 10}}>
-        <TextInput
-          style={{height: 20}}
-          placeholder="Search"
-          placeholderTextColor= 'black'
+        <SearchBar
+          handleResults={this._handleResults}
+          showOnLoad
         />
-      </View>
     );
   }
 }
 
-module.exports = SearchBar;
+module.exports = Search;
 
-AppRegistry.registerComponent('SearchBar', () => SearchBar);
+AppRegistry.registerComponent('Search', () => Search);

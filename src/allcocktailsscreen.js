@@ -21,17 +21,24 @@ import {
   YourCocktail,
   CocktailClass,
 } from './cocktails.js';
-const SearchBar = require('./searchBar.js');
+import SearchBar from 'react-native-searchbar';
+import fontAwesome from "react-native-vector-icons";
 
 class AllCocktailsScreen extends Component{
   constructor(props) {
     super(props);
     this.state = {
       cocktailnames: [],
-    }
+      results: [],
+      value: ''
+    };
+    this._handleResults = this._handleResults.bind(this);
   }
   componentWillMount(){
     this.Lister();
+  }
+  _handleResults(results){
+    this.setState({results});
   }
   Lister(){
     firebase.database().ref('/allcocktails').on('value', (snapshot) =>{
@@ -44,23 +51,31 @@ class AllCocktailsScreen extends Component{
   }
   render(){
     const { navigate } = this.props.navigation;
+    console.log(this.state.value);
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
-        <View style={{backgroundColor: 'white', padding: 10, paddingTop: 50}}>
-          <SearchBar/>
-          <Button
-            onPress = {() => navigate('CreateCocktail')}
-            title="Create"
-            color="black" />
-        </View>
-        <ScrollView>
-          {this.state.cocktailnames.map((name,i)=>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('CocktailDetail')}>
-              <Text key={i}>
-                {name}
-              </Text>
-            </TouchableHighlight>
-          )}
+        <SearchBar
+          data={this.state.cocktailnames}
+          handleResults={this._handleResults}
+          allDataOnEmptySearch
+          hideBack
+          showOnLoad/>
+        <ScrollView style={{paddingTop:70}}>
+        {this.state.results.length !== 0 ?
+          this.state.results.map((result, i) => {
+            return (
+              <TouchableHighlight
+              style={{paddingTop:5}}
+              onPress={() => this.props.navigation.navigate('CocktailDetail')}>
+                <Text key={i}>
+                  {result}
+                </Text>
+              </TouchableHighlight>
+            );
+          })
+          :
+          <Text>No Matches</Text>
+        }
         </ScrollView>
       </View>
     );

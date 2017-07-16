@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-const SearchBar = require('./searchBar.js');
+import Search from './searchBar.js';
 
 class YourCocktailsScreen extends Component{
   constructor(props) {
@@ -40,8 +40,8 @@ class YourCocktailsScreen extends Component{
     const { navigate } = this.props.navigation;
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
-        <View style={{backgroundColor: 'white', padding: 10, paddingTop: 50}}>
-          <SearchBar/>
+        <Search data={this.state.cocktailnames}/>
+        <View style={{backgroundColor: 'grey', paddingTop: 75}}>
           <Button
             onPress = {() => navigate('CreateCocktail')}
             title="Create"

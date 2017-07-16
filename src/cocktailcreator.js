@@ -82,9 +82,16 @@ export class CocktailCreatorScreen extends Component{
       });
       this.props.navigation.navigate('Your Cocktails');
     }
+    const back = () => {
+      this.props.navigation.goBack(null);
+    }
     return(
       <View style = {{flex: 1, flexDirection: 'column', backgroundColor: 'teal', paddingTop: 50}}>
         <ScrollView>
+          <Button
+            onPress = {back}
+            title = 'back'
+          />
           <Text style = {styles.createText}>Name your Cocktail</Text>
           <TextInput
             onChangeText={(name) => this.setState({name: name})}
