@@ -22,16 +22,18 @@ import {
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
+/*
+remove all params except name. name is retrieved with firebase reference,
+use reference to obtain all other info. set info as states instead of consts
+*/
+
 class CocktailScreen extends Component{
   static navigationOptions = ({ navigation }) => {
     const {state, setParams} = navigation;
     const isInfo = state.params.mode === 'info';
-    const {cocktailName} = state.params;
-    const {cocktailType} = state.params;
-    const {cocktailIng} = state.params;
-    const {cocktailSteps} = state.params;
+    const {cocktail} = state.params;
     return {
-      title: isInfo ? "Cocktail Info" : cocktailName,
+      title: isInfo ? "Cocktail Info" : cocktail,
     };
   };
   render() {
@@ -41,13 +43,7 @@ class CocktailScreen extends Component{
     }
     return (
       <View style={{paddingTop: 50}}>
-        <Text>Details on {params.cocktailName}</Text>
-        <Text>Family</Text>
-        <Text>{params.cocktailType}</Text>
-        <Text>Ingredients</Text>
-        <Text>{params.cocktailIng}</Text>
-        <Text>Steps</Text>
-        <Text>{params.cocktailSteps}</Text>
+        <Text>Details on {params.cocktail}</Text>
         <Button
           onPress={back}
           title="back" />

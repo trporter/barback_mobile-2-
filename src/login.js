@@ -77,7 +77,7 @@ export default class Login extends Component {
           title="Login"/>
         <Button
           onPress={this.goToSignup.bind(this)}
-          title="New Here?"/>
+          title="Sign Up"/>
       </View>
     );
   }

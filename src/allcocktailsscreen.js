@@ -30,7 +30,6 @@ class AllCocktailsScreen extends Component{
     this.state = {
       cocktailnames: [],
       results: [],
-      value: ''
     };
     this._handleResults = this._handleResults.bind(this);
   }
@@ -51,7 +50,6 @@ class AllCocktailsScreen extends Component{
   }
   render(){
     const { navigate } = this.props.navigation;
-    console.log(this.state.value);
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
         <SearchBar
@@ -66,7 +64,8 @@ class AllCocktailsScreen extends Component{
             return (
               <TouchableHighlight
               style={{paddingTop:5}}
-              onPress={() => this.props.navigation.navigate('CocktailDetail')}>
+              onPress={() => this.props.navigation.navigate('CocktailDetail', {
+                cocktail: result })}>
                 <Text key={i}>
                   {result}
                 </Text>
@@ -74,7 +73,18 @@ class AllCocktailsScreen extends Component{
             );
           })
           :
-          <Text>No Matches</Text>
+          this.state.cocktailnames.map((name, i) => {
+            return (
+              <TouchableHighlight
+              style={{paddingTop:5}}
+              onPress={() => this.props.navigation.navigate('CocktailDetail', {
+                cocktail: name })}>
+                <Text key={i}>
+                  {name}
+                </Text>
+              </TouchableHighlight>
+            );
+          })
         }
         </ScrollView>
       </View>
