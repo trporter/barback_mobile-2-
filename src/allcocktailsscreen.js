@@ -65,7 +65,7 @@ class AllCocktailsScreen extends Component{
               <TouchableHighlight
               style={{paddingTop:5}}
               onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: result })}>
+                cocktail: firebase.database().ref('/allcocktails/' + result) })}>
                 <Text key={i}>
                   {result}
                 </Text>
@@ -78,7 +78,7 @@ class AllCocktailsScreen extends Component{
               <TouchableHighlight
               style={{paddingTop:5}}
               onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: name })}>
+                cocktail: firebase.database().ref('/allcocktails/' + name) })}>
                 <Text key={i}>
                   {name}
                 </Text>

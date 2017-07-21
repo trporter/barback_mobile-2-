@@ -78,7 +78,7 @@ export class CocktailCreatorScreen extends Component{
         name: `${this.state.name}`,
         ingredients: `${this.state.ingredients}`,
         steps: `${this.state.steps}`,
-        type: `${this.state.type}`
+        type: `${this.state.type}`,
       });
       this.props.navigation.navigate('Your Cocktails');
     }

@@ -44,7 +44,6 @@ class YourCocktailsScreen extends Component{
   }
   render(){
     const { navigate } = this.props.navigation;
-    console.log(this.state.results);
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
         <Search
@@ -62,11 +61,12 @@ class YourCocktailsScreen extends Component{
         <ScrollView>
         {this.state.results.length !== 0 ?
           this.state.results.map((result, i) => {
+            console.log(firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + result));
             return (
               <TouchableHighlight
               style={{paddingTop:5}}
               onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: result })}>
+                cocktail: firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + result) })}>
                 <Text key={i}>
                   {result}
                 </Text>
@@ -79,7 +79,7 @@ class YourCocktailsScreen extends Component{
               <TouchableHighlight
               style={{paddingTop:5}}
               onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: name })}>
+                cocktail: firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + name) })}>
                 <Text key={i}>
                   {name}
                 </Text>
