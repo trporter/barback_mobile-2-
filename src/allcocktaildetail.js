@@ -22,24 +22,27 @@ import {
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-class CocktailScreen extends Component{
-  static navigationOptions = ({ navigation }) => {
-    const {state, setParams} = navigation;
-    const isInfo = state.params.mode === 'info';
-    const {cocktail} = state.params;
-    return {
-      title: isInfo ? "Cocktail Info" : cocktail.name,
-    };
-  };
+class AllCocktailsDetail extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      cocktail: {},
+    }
+  }
+  static navigationOptions = ({ navigation }) => ({
+    title: "cocktail",
+  });
   render() {
-    console.log(params.cocktail)
-    const { params } = this.props.navigation.state;
+    firebase.database().ref('/allcocktails/' + `${params.cocktail}`).on('value', (snapshot) =>{
+      this.setState({cocktail: Object.keys(snapshot.val())});
+    });
     const back = () => {
       this.props.navigation.goBack(null);
     }
+    console.log(this.state.cocktail);
     return (
       <View style={{paddingTop: 50}}>
-        <Text>Details on {params.cocktail.name}</Text>
+        <Text>Details on </Text>
         <Button
           onPress={back}
           title="back" />
@@ -48,6 +51,6 @@ class CocktailScreen extends Component{
   }
 }
 
-module.exports = CocktailScreen;
+module.exports = AllCocktailsDetail;
 
-AppRegistry.registerComponent('CocktailScreen', () => CocktailScreen);
+AppRegistry.registerComponent('AllCocktailsDetail', () => AllCocktailsDetail);

@@ -61,12 +61,10 @@ class YourCocktailsScreen extends Component{
         <ScrollView>
         {this.state.results.length !== 0 ?
           this.state.results.map((result, i) => {
-            console.log(firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + result));
             return (
               <TouchableHighlight
               style={{paddingTop:5}}
-              onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + result) })}>
+              onPress={() => navigate('YourCocktailsDetail', { cocktail: result })}>
                 <Text key={i}>
                   {result}
                 </Text>
@@ -78,8 +76,7 @@ class YourCocktailsScreen extends Component{
             return (
               <TouchableHighlight
               style={{paddingTop:5}}
-              onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + name) })}>
+              onPress={() => navigate('YourCocktailsDetail', { cocktail: name })}>
                 <Text key={i}>
                   {name}
                 </Text>

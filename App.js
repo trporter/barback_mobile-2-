@@ -31,9 +31,10 @@ import Login from './src/login.js';
 import Account from './src/account.js';
 import Signup from "./src/signUp.js";
 import CocktailCreatorScreen from "./src/cocktailcreator.js";
-import CocktailScreen from "./src/cocktailscreen.js";
-import AllCocktailsScreen from "./src/allcocktailsscreen.js";
+import AllCocktailsDetail from "./src/allcocktaildetail.js";
+import YourCocktailsDetail from "./src/yourcocktaildetail.js";
 import YourCocktailsScreen from "./src/yourcocktailsscreen.js";
+import AllCocktailsScreen from "./src/allcocktailsscreen.js";
 
 // Initialize Firebase
 var config = {
@@ -53,7 +54,6 @@ class HomeScreen extends Component{
 }
 
 const MainScreenNavigator = TabNavigator({
-  //tabs at bottom
   "All Cocktails": {
     screen: AllCocktailsScreen
   },
@@ -84,13 +84,14 @@ MainScreenNavigator.navigationOptions = {
 
 const SimpleApp = StackNavigator(
   {
-    Home:           { screen: MainScreenNavigator },
-    CocktailDetail: { screen: CocktailScreen },
-    CreateCocktail: { screen: CocktailCreatorScreen },
-    UserProfile:    { screen: UserProfile },
-    Login:          { screen: Login },
-    Signup:         { screen: Signup },
-    Account:        { screen: Account },
+    Home:                 { screen: MainScreenNavigator },
+    AllCocktailDetail:    { screen: AllCocktailsDetail },
+    YourCocktailsDetail:  { screen: YourCocktailsDetail },
+    CreateCocktail:       { screen: CocktailCreatorScreen },
+    UserProfile:          { screen: UserProfile },
+    Login:                { screen: Login },
+    Signup:               { screen: Signup },
+    Account:              { screen: Account },
   },
   {
     initialRouteName: 'Login',
