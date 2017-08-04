@@ -43,10 +43,11 @@ class YourCocktailsDetail extends Component{
     const back = () => {
       this.props.navigation.goBack(null);
     }
-    console.log(this.state.cocktail);
     return (
       <View style={{paddingTop: 50}}>
-        <Text>Details on {params.cocktail}</Text>
+        <Text>Details on {this.state.cocktail.name}</Text>
+        <Text>List of ingredients:</Text>
+        <Text>{this.state.cocktail.ingredients}</Text>
         <Button
           onPress={back}
           title="back" />

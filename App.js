@@ -85,7 +85,7 @@ MainScreenNavigator.navigationOptions = {
 const SimpleApp = StackNavigator(
   {
     Home:                 { screen: MainScreenNavigator },
-    AllCocktailDetail:    { screen: AllCocktailsDetail },
+    AllCocktailsDetail:    { screen: AllCocktailsDetail },
     YourCocktailsDetail:  { screen: YourCocktailsDetail },
     CreateCocktail:       { screen: CocktailCreatorScreen },
     UserProfile:          { screen: UserProfile },

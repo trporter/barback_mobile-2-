@@ -14,14 +14,7 @@ import {
 } from 'react-native';
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import {
-  cocktailList,
-  yourCocktailList,
-  Cocktail,
-  YourCocktail,
-  CocktailClass,
-} from './cocktails.js';
-import SearchBar from 'react-native-searchbar';
+import Search from 'react-native-searchbar';
 import fontAwesome from "react-native-vector-icons";
 
 class AllCocktailsScreen extends Component{
@@ -52,7 +45,7 @@ class AllCocktailsScreen extends Component{
     const { navigate } = this.props.navigation;
     return (
       <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'teal' }}>
-        <SearchBar
+        <Search
           data={this.state.cocktailnames}
           handleResults={this._handleResults}
           allDataOnEmptySearch
@@ -64,8 +57,7 @@ class AllCocktailsScreen extends Component{
             return (
               <TouchableHighlight
               style={{paddingTop:5}}
-              onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: firebase.database().ref('/allcocktails/' + result) })}>
+              onPress={() => navigate('AllCocktailsDetail', { cocktail: result })}>
                 <Text key={i}>
                   {result}
                 </Text>
@@ -77,8 +69,7 @@ class AllCocktailsScreen extends Component{
             return (
               <TouchableHighlight
               style={{paddingTop:5}}
-              onPress={() => this.props.navigation.navigate('CocktailDetail', {
-                cocktail: firebase.database().ref('/allcocktails/' + name) })}>
+              onPress={() => navigate('AllCocktailsDetail', { cocktail: name })}>
                 <Text key={i}>
                   {name}
                 </Text>

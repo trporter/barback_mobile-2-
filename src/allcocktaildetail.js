@@ -29,20 +29,24 @@ class AllCocktailsDetail extends Component{
       cocktail: {},
     }
   }
+  componentWillMount(){
+    firebase.database().ref('/allcocktails/' + `${this.props.navigation.state.params.cocktail}`).on('value', (snapshot) =>{
+      this.setState({cocktail: snapshot.val()});
+    });
+  }
   static navigationOptions = ({ navigation }) => ({
-    title: "cocktail",
+    title: navigation.state.params.cocktail,
   });
   render() {
-    firebase.database().ref('/allcocktails/' + `${params.cocktail}`).on('value', (snapshot) =>{
-      this.setState({cocktail: Object.keys(snapshot.val())});
-    });
+    const { params } = this.props.navigation.state;
     const back = () => {
       this.props.navigation.goBack(null);
     }
-    console.log(this.state.cocktail);
     return (
       <View style={{paddingTop: 50}}>
-        <Text>Details on </Text>
+        <Text>Details on {this.state.cocktail.name}</Text>
+        <Text>List of ingredients:</Text>
+        {this.state.cocktail.ingredients}
         <Button
           onPress={back}
           title="back" />
