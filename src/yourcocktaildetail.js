@@ -32,7 +32,7 @@ class YourCocktailsDetail extends Component{
   }
   componentWillMount(){
     firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + `${this.props.navigation.state.params.cocktail}`).on('value', (snapshot) =>{
-      this.setState({cocktail: Object.keys(snapshot.val())});
+      this.setState({cocktail: snapshot.val()});
     });
   }
   static navigationOptions = ({ navigation }) => ({
@@ -46,7 +46,7 @@ class YourCocktailsDetail extends Component{
     console.log(this.state.cocktail);
     return (
       <View style={{paddingTop: 50}}>
-        <Text>Details on {this.state.cocktail.name}</Text>
+        <Text>Details on {params.cocktail}</Text>
         <Button
           onPress={back}
           title="back" />
