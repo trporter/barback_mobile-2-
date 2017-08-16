@@ -45,8 +45,6 @@ class AllCocktailsDetail extends Component{
     return (
       <View style={{paddingTop: 50}}>
         <Text>Details on {this.state.cocktail.name}</Text>
-        <Text>List of ingredients:</Text>
-        {this.state.cocktail.ingredients}
         <Button
           onPress={back}
           title="back" />

@@ -7,6 +7,7 @@ import {
 } from './cocktails.js';
 import {
   AppRegistry,
+  Alert,
   Text,
   Button,
   ScrollView,
@@ -43,6 +44,14 @@ class YourCocktailsDetail extends Component{
     const back = () => {
       this.props.navigation.goBack(null);
     }
+    const del = () => {
+      this.props.navigation.goBack(null);
+      //firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + `${this.props.navigation.state.params.cocktail}`).remove()
+      setTimeout(() =>
+        firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + `${this.props.navigation.state.params.cocktail}`).remove(),
+        1000
+      );
+    }
     return (
       <View style={{paddingTop: 50}}>
         <Text>Details on {this.state.cocktail.name}</Text>
@@ -51,6 +60,9 @@ class YourCocktailsDetail extends Component{
         <Button
           onPress={back}
           title="back" />
+        <Button
+          onPress={del}
+          title="delete" />
       </View>
     );
   }
