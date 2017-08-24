@@ -34,7 +34,7 @@ export class CocktailCreatorScreen extends Component{
       textStepNumber: 0,
       steps: [],
       stepInput: [],
-      types: [],
+      type:'',
       mode: Picker.MODE_DIALOG,
       name: '',
       photo: '',
@@ -103,13 +103,13 @@ export class CocktailCreatorScreen extends Component{
           <Text style = {styles.createText}>What family?</Text>
           <Picker
             style={{backgroundColor: 'white'}}
-            selectedValue={this.state.types}
-            onValueChange={(type) => this.setState({types: type})}>
-            <Picker.Item label="whiskey" value="key0" />
-            <Picker.Item label="vodka" value="key1" />
-            <Picker.Item label="gin" value="key2" />
-            <Picker.Item label="rum" value="key3" />
-            <Picker.Item label="other" value="key4" />
+            selectedValue={this.state.type}
+            onValueChange={(itemValue, itemIndex) => this.setState({type: itemValue})}>
+            <Picker.Item label="whiskey" value="whiskey" />
+            <Picker.Item label="vodka" value="vodka" />
+            <Picker.Item label="gin" value="gin" />
+            <Picker.Item label="rum" value="rum" />
+            <Picker.Item label="other" value="other" />
           </Picker>
           <Text style = {styles.createText}>List the ingredients</Text>
           <TextInput

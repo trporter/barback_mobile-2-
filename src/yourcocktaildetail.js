@@ -57,6 +57,8 @@ class YourCocktailsDetail extends Component{
         <Text>Details on {this.state.cocktail.name}</Text>
         <Text>List of ingredients:</Text>
         <Text>{this.state.cocktail.ingredients}</Text>
+        <Text>Type:</Text>
+        <Text>{this.state.cocktail.type}</Text>
         <Button
           onPress={back}
           title="back" />
