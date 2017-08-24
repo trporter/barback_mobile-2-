@@ -28,9 +28,9 @@ export class CocktailCreatorScreen extends Component{
     super();
     this.state = {
       user: firebase.auth().currentUser,
-      textIngNumber: 0,
-      ingredients: '',
-      ingInput: [],
+      textIngNumber: 0, //# of ingredients - 1
+      ingredients: [], //set ingredients list
+      ingInput: [], //each ingredient / input
       textStepNumber: 0,
       steps: [],
       stepInput: [],
@@ -45,7 +45,7 @@ export class CocktailCreatorScreen extends Component{
       this.setState({ textIngNumber: this.state.textIngNumber += 1});
       this.state.ingInput.push(
         <TextInput
-          onChangeText={(ing) => this.setState({ingredients: ing})}
+          onChangeText={(ing) => this.state.ingredients[this.state.textIngNumber] = ing}
           key = {this.state.textIngNumber}
           style={{height: 20}}
           placeholder="Add ingredient"
@@ -61,7 +61,7 @@ export class CocktailCreatorScreen extends Component{
       this.setState({ textStepNumber: this.state.textStepNumber += 1});
       this.state.stepInput.push(
         <TextInput
-          onChangeText={(step) => this.state.steps.push(step)}
+          onChangeText={(step) => this.state.steps[this.state.textStepNumber] = step}
           key = {this.state.textStepNumber}
           style={{height: 20}}
           placeholder="Add Step"
@@ -113,7 +113,7 @@ export class CocktailCreatorScreen extends Component{
           </Picker>
           <Text style = {styles.createText}>List the ingredients</Text>
           <TextInput
-            onChangeText={(ing) => this.setState({ingredients: ing})}
+            onChangeText={(ing) => this.state.ingredients[this.state.textIngNumber] = ing}
             style={{height: 20}}
             placeholder="Add Ingredient"
             placeholderTextColor='black'
@@ -131,7 +131,7 @@ export class CocktailCreatorScreen extends Component{
           </View>
           <Text style = {styles.createText}>Steps in your recipe</Text>
           <TextInput
-            onChangeText={(step) => this.state.steps.push(step)}
+            onChangeText={(step) => this.state.steps[this.state.textStepNumber] = step}
             style={{height: 20}}
             placeholder="Add step"
             placeholderTextColor='black'
