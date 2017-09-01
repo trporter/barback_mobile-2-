@@ -22,15 +22,16 @@ import {
   YourCocktail,
   CocktailClass,
 } from './cocktails.js';
+import ImagePicker from 'react-native-image-picker';
 
 export class CocktailCreatorScreen extends Component{
   constructor() {
     super();
     this.state = {
       user: firebase.auth().currentUser,
-      textIngNumber: 0, //# of ingredients - 1
-      ingredients: [], //set ingredients list
-      ingInput: [], //each ingredient / input
+      textIngNumber: 0,
+      ingredients: [],
+      ingInput: [],
       textStepNumber: 0,
       steps: [],
       stepInput: [],
@@ -38,7 +39,37 @@ export class CocktailCreatorScreen extends Component{
       mode: Picker.MODE_DIALOG,
       name: '',
       photo: '',
+      avatarSource: null
     };
+  }
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });
   }
   render(){
     const addIng = () => {
@@ -79,6 +110,7 @@ export class CocktailCreatorScreen extends Component{
         ingredients: `${this.state.ingredients}`,
         steps: `${this.state.steps}`,
         type: `${this.state.type}`,
+        photo: `${this.state.avatarSource}`
       });
       this.props.navigation.navigate('Your Cocktails');
     }
@@ -100,6 +132,10 @@ export class CocktailCreatorScreen extends Component{
             placeholderTextColor='black'
             backgroundColor='white'
           />
+          <Button
+            onPress = {this.selectPhotoTapped.bind(this)}
+            title="Add Photo"
+            color="blue" />
           <Text style = {styles.createText}>What family?</Text>
           <Picker
             style={{backgroundColor: 'white'}}

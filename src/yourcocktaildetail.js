@@ -13,6 +13,7 @@ import {
   ScrollView,
   View,
   Picker,
+  Image,
   StyleSheet,
   TextInput,
   List,
@@ -54,6 +55,7 @@ class YourCocktailsDetail extends Component{
     }
     return (
       <View style={{paddingTop: 50}}>
+        <Image>{this.state.cocktail.photo}</Image>
         <Text>Details on {this.state.cocktail.name}</Text>
         <Text>List of ingredients:</Text>
         <Text>{this.state.cocktail.ingredients}</Text>
