@@ -36,6 +36,7 @@ class YourCocktailsDetail extends Component{
     firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + `${this.props.navigation.state.params.cocktail}`).on('value', (snapshot) =>{
       this.setState({cocktail: snapshot.val()});
     });
+    //retrieve photo here???
   }
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.cocktail,
@@ -47,7 +48,6 @@ class YourCocktailsDetail extends Component{
     }
     const del = () => {
       this.props.navigation.goBack(null);
-      //firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + `${this.props.navigation.state.params.cocktail}`).remove()
       setTimeout(() =>
         firebase.database().ref(`${this.state.user.uid}` + '/cocktails/' + `${this.props.navigation.state.params.cocktail}`).remove(),
         1000
@@ -55,7 +55,7 @@ class YourCocktailsDetail extends Component{
     }
     return (
       <View style={{paddingTop: 50}}>
-        <Image>{this.state.cocktail.photo}</Image>
+        <Text>{this.state.cocktail.photo}</Text>
         <Text>Details on {this.state.cocktail.name}</Text>
         <Text>List of ingredients:</Text>
         <Text>{this.state.cocktail.ingredients}</Text>

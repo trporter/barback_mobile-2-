@@ -65,9 +65,7 @@ export class CocktailCreatorScreen extends Component{
       }
       else {
         let source = { uri: response.uri };
-        this.setState({
-          avatarSource: source
-        });
+        this.setState({ avatarSource: source });
       }
     });
   }
@@ -110,7 +108,7 @@ export class CocktailCreatorScreen extends Component{
         ingredients: `${this.state.ingredients}`,
         steps: `${this.state.steps}`,
         type: `${this.state.type}`,
-        photo: `${this.state.avatarSource}`
+        photo: `${this.state.avatarSource}` //write to database seperately, not json format
       });
       this.props.navigation.navigate('Your Cocktails');
     }
